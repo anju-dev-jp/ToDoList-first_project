@@ -1,41 +1,71 @@
 class ToDoList:
     def __init__(self):
-        self.shown = []
-        self.i = 1
+        self.tasks = []
 
-    def addtasks(self):
+    def add_task(self):
         task = input("Enter the task you want to add: ")
-        self.shown.append(f"{self.i}. {task}")
-        self.i += 1
+        self.tasks.append(task)
         print("Task added successfully.")
 
-    def deletetasks(self):
-        task = input("Enter the task you want to delete: ")
+    def delete_task(self):
+        self.show_tasks()
 
-        for item in self.shown:
-            if item.endswith(task):
-                self.shown.remove(item)
-                print("Task deleted successfully.")
-                return
+        try:
+            index = int(input("Enter task number to delete: "))
+            if 1 <= index <= len(self.tasks):
+                removed = self.tasks.pop(index - 1)
+                print(f"Deleted: {removed}")
+            else:
+                print("Invalid number.")
+        except ValueError:
+            print("Please enter a number.")
 
-        print("Task not found.")
+    def update_task(self):
+        self.show_tasks()
 
-    def updatetasks(self):
-        old_task = input("Enter the task you want to update: ")
-
-        for index, item in enumerate(self.shown):
-            if item.endswith(old_task):
-                new_task = input("Enter the new task: ")
-                self.shown[index] = f"{index + 1}. {new_task}"
+        try:
+            index = int(input("Enter task number to update: "))
+            if 1 <= index <= len(self.tasks):
+                new_task = input("Enter new task: ")
+                self.tasks[index - 1] = new_task
                 print("Task updated successfully.")
-                return
+            else:
+                print("Invalid number.")
+        except ValueError:
+            print("Please enter a number.")
 
-        print("Task not found.")
-
-    def showtasks(self):
-        if not self.shown:
+    def show_tasks(self):
+        if not self.tasks:
             print("No tasks.")
         else:
             print("\nToDo List")
-            for task in self.shown:
-                print(task)
+            for i, task in enumerate(self.tasks, start=1):
+                print(f"{i}. {task}")
+
+
+if __name__ == "__main__":
+    todo = ToDoList()
+
+    while True:
+        print("\n===== MENU =====")
+        print("1: Add Task")
+        print("2: Delete Task")
+        print("3: Update Task")
+        print("4: Show Tasks")
+        print("5: Exit")
+
+        choice = input("Choose: ")
+
+        if choice == "1":
+            todo.add_task()
+        elif choice == "2":
+            todo.delete_task()
+        elif choice == "3":
+            todo.update_task()
+        elif choice == "4":
+            todo.show_tasks()
+        elif choice == "5":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice")
