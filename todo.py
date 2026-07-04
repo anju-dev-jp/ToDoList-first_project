@@ -39,30 +39,3 @@ class ToDoList:
             print("\nToDo List")
             for task in self.shown:
                 print(task)
-
-
-# 実行例
-todo = ToDoList()
-
-while True:
-    print("\n1. Add Task")
-    print("2. Delete Task")
-    print("3. Update Task")
-    print("4. Show Tasks")
-    print("5. Exit")
-
-    choice = input("Choose: ")
-
-    if choice == "1":
-        todo.addtasks()
-    elif choice == "2":
-        todo.deletetasks()
-    elif choice == "3":
-        todo.updatetasks()
-    elif choice == "4":
-        todo.showtasks()
-    elif choice == "5":
-        print("Goodbye!")
-        break
-    else:
-        print("Invalid choice.")
